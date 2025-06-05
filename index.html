@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ignition Event Center offers a luxurious pool, bar, restaurant, apartment, and event space for all your special occasions." />
+  <meta name="keywords" content="event center, pool, bar, restaurant, apartment, events, Ignition Event Center" />
+  <title>Ignition Event Center</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #f5be60, #f5a762);
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #222f3d;
+      color: #fff;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      width: 100%;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      color: #cf311c;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: #cf311c;
+      outline: none;
+    }
+
+    main {
+      padding-top: 60px;
+    }
+
+    .hero {
+      position: relative;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      padding: 0 20px;
+    }
+
+    .hero-slideshow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      z-index: 1;
+    }
+
+    .hero-slideshow img.active {
+      display: block;
+      opacity: 0.6; /* 40% transparent */
+      animation: fadeIn 1s ease;
+    }
+
+    .hero-overlay {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+      width: 100%;
+      max-width: 1000px;
+      opacity: 1; /* Ensure overlay content is fully opaque */
+    }
+
+    .hero-overlay img {
+      width: 500px;
+      height: 200px;
+      margin-bottom: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-overlay h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-overlay p {
+      font-size: 1.25rem;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    section {
+      padding: 30px 20px;
+      background: linear-gradient(#222f3d, rgba(34, 49, 63, 0.6));
+      margin: 40px 0;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 2.25rem;
+      color: #ff7a18;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.description {
+      color: #ececec;
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .content-image {
+      flex: 1 1 400px;
+      max-width: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+.content-text {
+      flex: 1 1 350px;
+      max-width: 600px;
+      font-size: 1rem;
+      color: #ececec;
+    }
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .slideshow img {
+      width: 100%;
+      display: none;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .slideshow img.active {
+      display: block;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 0.6; } /* Updated for hero slideshow; other slideshows use opacity: 1 */
+    }
+
+    .slideshow-controls {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .slideshow-controls button {
+      background: #ff7a18;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      margin: 0 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .slideshow-controls button:hover,
+    .slideshow-controls button:focus {
+      background: #cc5c12;
+      outline: none;
+    }
+
+    
+
+    /* Footer */
+    footer {
+      background: #222f3d;
+      color: #bbb;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+     .signature {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #cf311c;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: inline-block;
+      border-bottom: 2px solid #ff7a18;
+      padding-bottom: 2px;
+    }
+
+    /* Opening Hours Styles */
+    .opening-hours-title {
+      font-size: 1.5em;
+      color: #cf311c;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .day-schedule {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .day {
+      font-weight: bold;
+      color: #ececec;
+    }
+
+    .time {
+      color: #cf311c;
+    }
+
+    .note,
+    .important-note {
+      margin-top: 20px;
+      font-style: italic;
+      color: #ececec;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .important-note {
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .content-wrapper {
+        flex-direction: column;
+      }
+
+      section {
+        margin: 30px 15px;
+        padding: 40px 15px;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .hero-overlay img {
+        width: 300px;
+        height: 120px;
+      }
+      .slideshow img {
+        height: 200px;
+    }
+    .container{
+      padding: 0 15px;
+    }
+    .content-image,
+    .content-text{
+      max-width: 100%;
+    }
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">IGNITION EVENT CENTER</a>
+        <ul>
+          <li><a href="#bar">Bar</a></li>
+          <li><a href="#pool">Pool</a></li>
+          <li><a href="#restaurant">Restaurant</a></li>
+          <li><a href="#apartment">Apartment</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<main>
+    <section class="hero" id="heroSection" aria-label="Welcome section">
+      <div class="hero-slideshow" id="heroSlideshow">
+        <img src="IMG_7796.JPG" alt="Pool at sunset with vibrant colors" role="img" />
+        <img src="IMG_7797.JPG" alt="Pool " role="img" />
+        <img src="IMG_7798.JPG" alt="Pool area" role="img" />
+         <img src="IMG_7806.JPG" alt="Pool area" role="img" />
+      </div>
+      <div class="hero-overlay">
+        <img src="BackgroundEraser_20241122_180148650.png" alt="Ignition Event Center logo" />
+        <h1>Welcome to Ignition Event Center</h1>
+        <p>Your perfect getaway with a pool, bar, apartment, restaurant, and events space for all your special occasions.</p>
+      </div>
+    </section>
+
+    <section id="bar" aria-label="Bar section">
+      <h2>Bar/Lounge</h2>
+      <p class="description">Sip on all your favourite drinks.</p>
+      <div class="content-wrapper">
+        <div class="content-image slideshow" id="barSlideshow" aria-live="polite" aria-atomic="true">
+          <img src="IMG_7800.jpg" alt="Cocktail in stylish bar" class="active" loading="lazy" role="img" />
+          <img src="IMG_7803.jpg" alt="Bartender preparing a signature drink" loading="lazy" role="img" />
+          <img src="IMG-20241208-WA0011.jpg" alt="Cozy bar interior with warm lighting" loading="lazy" role="img" />
+          <img src="IMG_7804.jpg" alt="Bar counter with premium spirits" loading="lazy" role="img" />
+          <img src="IMG_7801.jpg" alt="Lively bar atmosphere" loading="lazy" role="img" />
+          <img src="IMG_7805.jpg" alt="Outdoor bar seating area" loading="lazy" role="img" />
+        </div>
+        <div class="content-text">
+          All your favourite drinks ranging from alcoholic beverages; gins, wine, whiskey, to non-alcoholoic 
+          drinks. Join us for happy hour specials and live music nights for an unforgettable evening.
+        </div>
+      </div>
+      <div class="slideshow-controls" role="group" aria-label="Bar slideshow controls">
+        <button data-slideshow="barSlideshow" class="prevBtn" aria-label="Previous bar image">« Previous</button>
+        <button data-slideshow="barSlideshow" class="nextBtn" aria-label="Next bar image">Next »</button>
+      </div>
+    </section>
+
+    <section id="pool" aria-label="Pool section" role="region">
+      <h2>Swimming Pool</h2>
+      <p class="description">Relax and unwind in our crystal-clear swimming pool.</p>
+      <div class="content-wrapper">
+        <div class="content-image slideshow" id="poolSlideshow" aria-live="polite" aria-atomic="true">
+          <img src="IMG_7806.JPG" alt="Pool with lounge chairs and umbrellas" class="active" loading="lazy" role="img" />
+          <img src="IMG_7798.JPG" alt="Pool during sunset with vibrant sky" loading="lazy" role="img" />
+          <img src="IMG-20241122-WA0005.jpg" alt="Swimming lesson with coach by the pool" loading="lazy" role="img" />
+          <img src="IMG-20241208-WA0012.jpg" alt="Kids learning to swim with instructor" loading="lazy" role="img" />
+        </div>
+        <div class="content-text">
+          This sleek rectangular pool features sparkling water that beckons for a dip and
+          offering a truly refreshing experience. For evening enjoyment, discreet submerged 
+          lights cast a captivating glow. Convenient steps and a robust ladder ensure effortless
+          access in and out of the pool.
+        </div>
+      </div>
+      <div class="slideshow-controls" role="group" aria-label="Pool slideshow controls">
+        <button data-slideshow="poolSlideshow" class="prevBtn" aria-label="Previous pool image">« Previous</button>
+        <button data-slideshow="poolSlideshow" class="nextBtn" aria-label="Next pool image">Next »</button>
+      </div>
+      <h2>Swimming lessons</h2>
+      <p class="description">Lessons to teach you or the kids to swim.</p>
+       <div class="content-wrapper">
+        <div class="content-image slideshow" id="swimmingLessonsSlideshow" aria-live="polite" aria-atomic="true">
+          <img src="swimm 3.png" alt="Pool with lounge chairs and umbrellas" class="active" loading="lazy" role="img" />
+          <img src="swimm.png" alt="Pool during sunset with vibrant sky" loading="lazy" role="img" />
+          <img src="swimm 2.png" alt="Swimming lesson with coach by the pool" loading="lazy" role="img" />
+          <img src="IMG-20241208-WA0012.jpg" alt="Kids learning to swim with instructor" loading="lazy" role="img" />
+        </div>
+         <div class="content-text">
+          Move from beginner to pro learning from our swim coach, with his guidance you would 
+          be a pro in the pool in no time.
+        </div>
+        </div>
+         <div class="slideshow-controls" role="group" aria-label="Pool slideshow controls">
+        <button data-slideshow="poolSlideshow" class="prevBtn" aria-label="Previous pool image">« Previous</button>
+        <button data-slideshow="poolSlideshow" class="nextBtn" aria-label="Next pool image">Next »</button>
+      </div>
+    </section>
+
+<section id="restaurant" aria-label="Restaurant section">
+      <h2>Restaurant</h2>
+      <p class="description">Enjoy delicious meals prepared by the best chef in the city.</p>
+      <div class="content-wrapper">
+        <div class="content-image slideshow" id="restaurantSlideshow" aria-live="polite" aria-atomic="true">
+          <img src="8a921624-6fa5-47b9-89bb-c7be4cc58022.jpeg" alt="Delicious fufu with light soup " class="active" loading="lazy" role="img" />
+          <img src="download (1).jpg" alt="Delicious banku and tilapia" loading="lazy" role="img" />
+          <img src="3a0def32-6af9-4d61-bd45-f942124e6589.jpeg" alt="Delectable fried rice with chicken" loading="lazy" role="img" />
+          <img src="11e3da55-a3ce-4f53-83fb-0c86e96e4174.jpeg" alt="Appetizing fries with fish or chicken" loading="lazy" role="img" />
+        </div>
+        <div class="content-text">
+          From international cuisine to local delicacies, our restaurant offers a culinary journey that delights every palate.
+        </div>
+      </div>
+      <div class="slideshow-controls" role="group" aria-label="Restaurant slideshow controls">
+        <button data-slideshow="restaurantSlideshow" class="prevBtn" aria-label="Previous restaurant image">« Previous</button>
+        <button data-slideshow="restaurantSlideshow" class="nextBtn" aria-label="Next restaurant image">Next »</button>
+      </div>
+    </section>
+
+    <section id="apartment" aria-label="Apartment section">
+      <h2>Comfortable Apartment</h2>
+      <p class="description">Stay in our modern apartment featuring all the amenities you need for a comfortable and relaxing retreat.</p>
+      <div class="content-wrapper">
+        <div class="content-image slideshow" id="apartmentSlideshow" aria-live="polite" aria-atomic="true">
+          <img src="photo_1_2025-05-28_17-49-38.jpg" alt="Modern apartment living room with cozy sofa" class="active" loading="lazy" role="img" />
+          <img src="photo_2_2025-05-28_17-49-38.jpg" alt="Stylish bedroom with comfortable bed" loading="lazy" role="img" />
+          <img src="photo_3_2025-05-28_17-49-38.jpg" alt="Apartment kitchen with modern appliances" loading="lazy" role="img" />
+           <img src="photo_4_2025-05-28_17-49-38.jpg" alt="Apartment kitchen with modern appliances" loading="lazy" role="img" />
+        </div>
+        <div class="content-text">
+          Relax in style with spacious rooms, fully equipped kitchen, high-speed internet, and stunning views to make your stay memorable.
+        </div>
+      </div>
+      <div class="slideshow-controls" role="group" aria-label="Apartment slideshow controls">
+        <button data-slideshow="apartmentSlideshow" class="prevBtn" aria-label="Previous apartment image">« Previous</button>
+        <button data-slideshow="apartmentSlideshow" class="nextBtn" aria-label="Next apartment image">Next »</button>
+      </div>
+    </section>
+
+    <section id="events" aria-label="Events section">
+      <h2>Event Space</h2>
+      <p class="description">Host your special events in our versatile and stylish space perfect for weddings, parties, and corporate gatherings.</p>
+      <div class="content-wrapper">
+        <div class="content-image slideshow" id="eventsSlideshow" aria-live="polite" aria-atomic="true">
+          <img src="20250602_083823.jpg" alt="A great space to set up any event" class="active" loading="lazy" role="img" />
+          <img src="20250602_083422.jpg" alt="A platform for all stage performances" loading="lazy" role="img" />
+          <img src="added 1.jpg" alt="well lit space at nights" loading="lazy" role="img" />
+          <img src="added 2.jpg" alt="Decorated event space with floral arrangements" loading="lazy" role="img" />
+        </div>
+        <div class="content-text">
+          This spacious environment has customizable seating arrangements and a stage for the center 
+           attraction of any event, our event space ensures your occasion is flawless.
+        </div>
+      </div>
+      <div class="slideshow-controls" role="group" aria-label="Events slideshow controls">
+        <button data-slideshow="eventsSlideshow" class="prevBtn" aria-label="Previous events image">« Previous</button>
+        <button data-slideshow="eventsSlideshow" class="nextBtn" aria-label="Next events image">Next »</button>
+      </div>
+    </section>
+
+     <section id="contact" aria-label="Opening hours">
+      <div class="container">
+        <center><img src="BackgroundEraser_20241122_180148650.png" alt="Ignition Event Center logo" width="300" height="100" /></center>
+        <div class="opening-hours-title">OPENING HOURS</div>
+        <div class="day-schedule">
+          <span class="day">MONDAYS - SATURDAYS</span><br />
+          <span class="time">10AM - 10PM</span>
+        </div>
+        <div class="day-schedule">
+          <span class="day">SUNDAYS</span><br />
+          <span class="time">1PM - 10PM</span>
+        </div>
+        <div class="day-schedule">
+          <span class="day">PUBLIC HOLIDAYS</span><br />
+          <span class="time">10AM - 12AM</span>
+        </div>
+        <p class="note">PLEASE NOTE: POOL IS CLOSED ON MONDAYS FOR CLEANING EXCEPT FOR PUBLIC HOLIDAYS.</p>
+        <p class="important-note">FOOD AND DRINKS ARE NOT ALLOWED INSIDE</p>
+      </div>
+         <h2>Contact For More Enquires</h2>
+         <p class="description">Get in touch to book your event, stay, or inquire about our services.</p>
+         <div class="day-schedule">
+          
+           <span class="day"> Phone : 024 4488 185 / 053 0361 010 </span>
+    </div>
+    <div class="day-schedule"> 
+      <span class="day"> Email : ignitioneventcentre@gmail.com
+        </span>
+      </div>
+    </section>
+
+   
+   
+  </main>
+
+  <footer>
+    © 2025 Ignition Event Center. All rights reserved. Designed with care by
+ <span class="signature">J.A.K.E</span>
+  </footer>
+
+   
+
+  <script>
+    (function () {
+      
+
+      const slideIndices = {};
+
+      function initSlideshow(slideshowId) {
+        slideIndices[slideshowId] = 0;
+        showSlide(slideshowId, 0);
+      }
+
+      function showSlide(slideshowId, index) {
+        const slideshow = document.getElementById(slideshowId);
+        if (!slideshow) return;
+        const slides = slideshow.querySelectorAll('img');
+        if (slides.length === 0) return;
+        if (index >= slides.length) index = 0;
+        if (index < 0) index = slides.length - 1;
+        slideIndices[slideshowId] = index;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+      }
+
+      function prevSlide(slideshowId) {
+        const currentIndex = slideIndices[slideshowId];
+        showSlide(slideshowId, currentIndex - 1);
+      }
+
+      function nextSlide(slideshowId) {
+        const currentIndex = slideIndices[slideshowId];
+        showSlide(slideshowId, currentIndex + 1);
+      }
+
+      const slideshowIds = ['heroSlideshow', 'barSlideshow', 'poolSlideshow', 'swimmingLessonsSlideshow','restaurantSlideshow', 'apartmentSlideshow', 'eventsSlideshow'];
+      slideshowIds.forEach(id => initSlideshow(id));
+
+document.querySelectorAll('.slideshow-controls button').forEach(button => {
+        const slideshowId = button.getAttribute('data-slideshow');
+        if (!slideshowId) return;
+        if (button.classList.contains('prevBtn')) {
+          button.addEventListener('click', () => prevSlide(slideshowId));
+        }
+        if (button.classList.contains('nextBtn')) {
+          button.addEventListener('click', () => nextSlide(slideshowId));
+        }
+      });
+
+      setInterval(() => {
+        for (const id in slideIndices) {
+          nextSlide(id);
+        }
+      }, 6000);
+
+      const navLinks = document.querySelectorAll('nav ul li a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.forEach(l => l.removeAttribute('aria-current'));
+          link.setAttribute('aria-current', 'page');
+        });
+      });
+
+      const contactForm = document.getElementById('contactForm');
+      const formMessage = document.getElementById('formMessage');
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if (name && email && message) {
+          formMessage.textContent = 'Thank you for your message! We will get back to you soon.';
+          formMessage.style.color = '#ececec';
+          formMessage.style.display = 'block';
+          contactForm.reset();
+        } else {
+          formMessage.textContent = 'Please fill out all required fields.';
+          formMessage.style.color = '#cf311c';
+          formMessage.style.display = 'block';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
